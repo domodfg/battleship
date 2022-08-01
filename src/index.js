@@ -1,6 +1,8 @@
 import "./style.css";
 import { shipFactory } from "./shipFactory.js";
-const ship = shipFactory(5)
-console.log(ship)
+import { gameBoardFactory } from "./gameBoardFactory.js";
+
+const gameBoard= gameBoardFactory()
+console.log(gameBoard)
 
 
