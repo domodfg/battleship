@@ -66,13 +66,12 @@ const gameBoardFactory = () => {
 
   const placeShipVertical = (ship, coordinate) => {
     const array = Array(ship.length);
-    let index = coordinate
+    let index = coordinate;
     for (let i = 0; i < array.length; i++) {
       array[i] = gameBoard[index];
       index += 10;
     }
     const placedPosition = array;
-    console.log(placedPosition);
 
     const boardLimitCheck = () => {
       const result = placedPosition.every((position) => {
@@ -103,21 +102,39 @@ const gameBoardFactory = () => {
   };
 
   const receiveAttack = (coordinate) => {
-    const shipDamagedPosition = gameBoard[coordinate].position;
-    const shipDamaged = gameBoard[coordinate].occupied;
-    shipDamaged.hit(shipDamagedPosition);
+    if (gameBoard[coordinate].occupied !== "no") {
+      const shipDamagedPosition = gameBoard[coordinate].position;
+      const shipDamaged = gameBoard[coordinate].occupied;
+      shipDamaged.hit(shipDamagedPosition);
+    }
+    if (gameBoard[coordinate].occupied === "no") {
+      gameBoard[coordinate].attacked = "yes";
+    }
+  };
+
+  const gameOverCheck = () => {
+    if (
+      carrier.isSunk() === true &&
+      battleship.isSunk() === true &&
+      destroyer.isSunk() === true &&
+      submarine.isSunk() === true &&
+      patrolBoat.isSunk() === true
+    )
+      return true;
+      else return false
   };
 
   return {
     gameBoard,
-    placeShip,
-    placeShipVertical,
-    receiveAttack,
     carrier,
     battleship,
     destroyer,
     submarine,
     patrolBoat,
+    placeShip,
+    placeShipVertical,
+    receiveAttack,
+    gameOverCheck
   };
 };
 
