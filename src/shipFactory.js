@@ -17,7 +17,7 @@ const shipFactory = (title, length) => {
     });
     return sunkCheck;
   };
-  return { title, shipHealth, hit, isSunk };
+  return { title, length, shipHealth, hit, isSunk };
 };
 
 export { shipFactory };

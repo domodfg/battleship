@@ -28,9 +28,40 @@ const gameBoardFactory = () => {
   const submarine = shipFactory("sybmarine", 3);
   const patrolBoat = shipFactory("patrolBoat", 2);
 
-  const placeShip = (title, length, coordinate) => {
-    title.shipHealth.forEach((position) => (position.occupied = title));
-    gameBoard.splice(coordinate, length, ...title.shipHealth);
+  const placeShip = (ship, coordinate) => {
+    const placedPosition = gameBoard.slice(
+      coordinate,
+      coordinate + ship.length
+    );
+
+    const horizontalCheck = () => {
+      const result = placedPosition.every((position) => {
+        if (position.Y === placedPosition[0].Y) return true;
+      });
+      return result;
+    };
+
+    const boardLimitCheck = () => {
+      if (placedPosition.length === ship.length) return true;
+    };
+
+    const overlapCheck = () => {
+      const result = placedPosition.every((position) => {
+        if (position.occupied === "no") return true;
+      });
+      return result;
+    };
+
+    if (
+      horizontalCheck() === true &&
+      boardLimitCheck() === true &&
+      overlapCheck() === true
+    ) {
+      ship.shipHealth.forEach((position) => (position.occupied = ship));
+      gameBoard.splice(coordinate, ship.length, ...ship.shipHealth);
+    } else {
+      console.log("invalid position");
+    }
   };
 
   const receiveAttack = (coordinate) => {
