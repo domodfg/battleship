@@ -25,7 +25,7 @@ const gameBoardFactory = () => {
   const carrier = shipFactory("carrier", 5);
   const battleship = shipFactory("battleship", 4);
   const destroyer = shipFactory("destroyer", 3);
-  const submarine = shipFactory("sybmarine", 3);
+  const submarine = shipFactory("submarine", 3);
   const patrolBoat = shipFactory("patrolBoat", 2);
 
   const placeShip = (ship, coordinate) => {
@@ -64,6 +64,44 @@ const gameBoardFactory = () => {
     }
   };
 
+  const placeShipVertical = (ship, coordinate) => {
+    const array = Array(ship.length);
+    let index = coordinate
+    for (let i = 0; i < array.length; i++) {
+      array[i] = gameBoard[index];
+      index += 10;
+    }
+    const placedPosition = array;
+    console.log(placedPosition);
+
+    const boardLimitCheck = () => {
+      const result = placedPosition.every((position) => {
+        if (position === undefined) return false;
+        else return true;
+      });
+      return result;
+    };
+
+    const overlapCheck = () => {
+      const result = placedPosition.every((position) => {
+        if (position.occupied === "no") return true;
+      });
+      return result;
+    };
+
+    if (boardLimitCheck() === true && overlapCheck() === true) {
+      ship.shipHealth.forEach((position) => (position.occupied = ship));
+      for (let i = 0; i < ship.shipHealth.length; i++) {
+        if (coordinate <= 99) {
+          gameBoard[coordinate] = ship.shipHealth[i];
+          coordinate += 10;
+        }
+      }
+    } else {
+      console.log("invalid position");
+    }
+  };
+
   const receiveAttack = (coordinate) => {
     const shipDamagedPosition = gameBoard[coordinate].position;
     const shipDamaged = gameBoard[coordinate].occupied;
@@ -73,6 +111,7 @@ const gameBoardFactory = () => {
   return {
     gameBoard,
     placeShip,
+    placeShipVertical,
     receiveAttack,
     carrier,
     battleship,
