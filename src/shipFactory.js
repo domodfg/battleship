@@ -1,23 +1,23 @@
-const shipFactory = (length) => {
+const shipFactory = (title, length) => {
   const array = Array(length);
   for (let index = 0; index < array.length; index++) {
-    array[index] = { status: "good" };
+    array[index] = { position: index, status: "good" };
   }
-  const ship = array;
+  const shipHealth = array;
 
   const hit = (attackedPosition) => {
-    ship[attackedPosition].status = "hit";
+    shipHealth[attackedPosition].status = "hit";
   };
 
   const isSunk = () => {
-    const sunkCheck = ship.every((position) => {
+    const sunkCheck = shipHealth.every((position) => {
       if (position.status == "hit") {
         return true;
       }
     });
     return sunkCheck;
   };
-  return { ship, hit, isSunk };
+  return { title, shipHealth, hit, isSunk };
 };
 
 export { shipFactory };

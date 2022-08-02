@@ -22,11 +22,33 @@ const gameBoardFactory = () => {
   }
   const gameBoard = array;
 
-  const placeShip = (length, coordinate) => {
-    const ship = shipFactory(length);
-    gameBoard[coordinate].X = 'yes'
+  const carrier = shipFactory("carrier", 5);
+  const battleship = shipFactory("battleship", 4);
+  const destroyer = shipFactory("destroyer", 3);
+  const submarine = shipFactory("sybmarine", 3);
+  const patrolBoat = shipFactory("patrolBoat", 2);
+
+  const placeShip = (title, length, coordinate) => {
+    title.shipHealth.forEach((position) => (position.occupied = title));
+    gameBoard.splice(coordinate, length, ...title.shipHealth);
   };
-  return { gameBoard };
+
+  const receiveAttack = (coordinate) => {
+    const shipDamagedPosition = gameBoard[coordinate].position;
+    const shipDamaged = gameBoard[coordinate].occupied;
+    shipDamaged.hit(shipDamagedPosition);
+  };
+
+  return {
+    gameBoard,
+    placeShip,
+    receiveAttack,
+    carrier,
+    battleship,
+    destroyer,
+    submarine,
+    patrolBoat,
+  };
 };
 
 export { gameBoardFactory };
