@@ -102,18 +102,22 @@ const gameBoardFactory = () => {
   };
 
   const receiveAttack = (coordinate) => {
-    if (gameBoard[coordinate].occupied !== "no") {
+    if (
+      gameBoard[coordinate].attacked === "no"
+    ) {
+      gameBoard[coordinate].attacked = "yes";
+    } else if (
+      gameBoard[coordinate].attacked === "yes"
+    ) {
+      return false;
+    } else if (
+      gameBoard[coordinate].occupied !== "no" &&
+      gameBoard[coordinate].status === "good"
+    ) {
       const shipDamagedPosition = gameBoard[coordinate].position;
       const shipDamaged = gameBoard[coordinate].occupied;
       shipDamaged.hit(shipDamagedPosition);
-    }
-    else if (gameBoard[coordinate].occupied === "no") {
-      gameBoard[coordinate].attacked = "yes";
-    }
-    else if (
-      gameBoard[coordinate].attacked === "yes" ||
-      gameBoard[coordinate].status === "hit"
-    ) {
+    } else {
       return false;
     }
   };

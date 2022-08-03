@@ -55,21 +55,28 @@ const computer = (() => {
     }
   };
 
+  let invalidAttack = true;
+
   const attack = (gameBoard, coordinate) => {
-    gameBoard.receiveAttack(coordinate);
+    if (gameBoard.receiveAttack(coordinate) === false) {
+      invalidAttack = true;
+    } else {
+      invalidAttack = false;
+    }
   };
 
   const randomAttack = (gameBoard) => {
-   gameBoard.receiveAttack(randomNumber(100)); 
+    while ((invalidAttack === true)) {
+      attack(gameBoard, randomNumber(100));
+      console.log('loop')
+    }
   };
 
   return {
     active,
     gameBoard,
-    randomNumber,
     randomPlaceShip,
     randomAttack,
-    attack,
   };
 })();
 
