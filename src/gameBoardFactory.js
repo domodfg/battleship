@@ -60,7 +60,7 @@ const gameBoardFactory = () => {
       ship.shipHealth.forEach((position) => (position.occupied = ship));
       gameBoard.splice(coordinate, ship.length, ...ship.shipHealth);
     } else {
-      console.log("invalid position");
+      return "invalid position";
     }
   };
 
@@ -97,7 +97,7 @@ const gameBoardFactory = () => {
         }
       }
     } else {
-      console.log("invalid position");
+      return "invalid position";
     }
   };
 
@@ -121,7 +121,7 @@ const gameBoardFactory = () => {
       patrolBoat.isSunk() === true
     )
       return true;
-      else return false
+    else return false;
   };
 
   return {
@@ -134,7 +134,7 @@ const gameBoardFactory = () => {
     placeShip,
     placeShipVertical,
     receiveAttack,
-    gameOverCheck
+    gameOverCheck,
   };
 };
 
