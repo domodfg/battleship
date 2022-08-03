@@ -107,8 +107,14 @@ const gameBoardFactory = () => {
       const shipDamaged = gameBoard[coordinate].occupied;
       shipDamaged.hit(shipDamagedPosition);
     }
-    if (gameBoard[coordinate].occupied === "no") {
+    else if (gameBoard[coordinate].occupied === "no") {
       gameBoard[coordinate].attacked = "yes";
+    }
+    else if (
+      gameBoard[coordinate].attacked === "yes" ||
+      gameBoard[coordinate].status === "hit"
+    ) {
+      return false;
     }
   };
 

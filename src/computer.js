@@ -54,7 +54,23 @@ const computer = (() => {
       placeShip(randomNumber(100), randomNumber(2));
     }
   };
-  return { active, gameBoard, randomNumber, randomPlaceShip };
+
+  const attack = (gameBoard, coordinate) => {
+    gameBoard.receiveAttack(coordinate);
+  };
+
+  const randomAttack = (gameBoard) => {
+   gameBoard.receiveAttack(randomNumber(100)); 
+  };
+
+  return {
+    active,
+    gameBoard,
+    randomNumber,
+    randomPlaceShip,
+    randomAttack,
+    attack,
+  };
 })();
 
 export { computer };

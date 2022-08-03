@@ -10,5 +10,8 @@ player.placeShip(31, "vertical");
 player.placeShip(42, "vertical");
 player.placeShip(55, "horizontal");
 
-computer.randomPlaceShip()
-console.log(computer.gameBoard.gameBoard)
+computer.randomPlaceShip();
+computer.attack(player.gameBoard, 9);
+computer.randomAttack(player.gameBoard)
+
+console.log(player.gameBoard.gameBoard);

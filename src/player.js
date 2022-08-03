@@ -44,7 +44,11 @@ const player = (() => {
     }
   };
 
-  return { active, gameBoard, placeShip };
+  const attack = (gameBoard, coordinate) => {
+    gameBoard.receiveAttack(coordinate);
+  };
+
+  return { active, gameBoard, placeShip, attack };
 })();
 
 export { player };
