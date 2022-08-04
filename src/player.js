@@ -1,8 +1,6 @@
 import { gameBoardFactory } from "./gameBoardFactory";
 
 const player = (() => {
-  let active = true;
-
   const gameBoard = gameBoardFactory();
 
   const checkExisting = (ship) => {
@@ -14,9 +12,16 @@ const player = (() => {
     } else return false;
   };
 
-  const placeShip = (coordinate, direction) => {
-    let XorY = direction;
-    if (XorY === "horizontal") {
+  let vertical = false;
+
+  let goVertical = () => {
+    if (vertical === true) {
+      vertical = false;
+    } else vertical = true;
+  };
+
+  const placeShip = (coordinate) => {
+    if (vertical === false) {
       if (checkExisting(gameBoard.carrier) !== true) {
         gameBoard.placeShip(gameBoard.carrier, coordinate);
       } else if (checkExisting(gameBoard.battleship) !== true) {
@@ -27,9 +32,8 @@ const player = (() => {
         gameBoard.placeShip(gameBoard.submarine, coordinate);
       } else if (checkExisting(gameBoard.patrolBoat) !== true) {
         gameBoard.placeShip(gameBoard.patrolBoat, coordinate);
-      } else return;
-    }
-    if (XorY === "vertical") {
+      }
+    } else if (vertical === true) {
       if (checkExisting(gameBoard.carrier) !== true) {
         gameBoard.placeShipVertical(gameBoard.carrier, coordinate);
       } else if (checkExisting(gameBoard.battleship) !== true) {
@@ -52,7 +56,7 @@ const player = (() => {
     }
   };
 
-  return { active, gameBoard, placeShip, attack };
+  return { gameBoard, placeShip, attack, checkExisting, goVertical};
 })();
 
 export { player };

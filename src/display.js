@@ -13,7 +13,6 @@ const display = (() => {
   const render = (gameBoard, target) => {
     for (let i = 0; i < gameBoard.gameBoard.length; i++) {
       const square = document.createElement("div");
-      /*       square.classList.add(`-${i}`); */
       square.setAttribute("data", i);
       square.classList.add("square");
       target.appendChild(square);
@@ -83,7 +82,93 @@ const display = (() => {
     });
   };
 
-  return { render, renderPlayerShips, renderHit, player1, player2, startGame };
+  const prepForBattle = () => {
+    const square = player1.querySelectorAll(".square");
+
+    const rotate = document.querySelector(".rotate");
+    let vertical = false;
+    rotate.addEventListener("click", () => {
+      player.goVertical();
+      if (vertical === false) {
+        vertical = true;
+      } else vertical = false;
+      console.log(vertical);
+    });
+
+    square.forEach((spot) => {
+      const index = parseInt(spot.getAttribute("data"));
+      spot.addEventListener("click", () => {
+        player.placeShip(index);
+        renderPlayerShips(player.gameBoard, player1);
+      });
+
+      spot.addEventListener("mouseenter", () => {
+        if (vertical === false) {
+          if (player.checkExisting(player.gameBoard.carrier) !== true) {
+            spot.classList.add("previewCarrier");
+          } else if (
+            player.checkExisting(player.gameBoard.battleship) !== true
+          ) {
+            spot.classList.add("previewBattleship");
+          } else if (
+            player.checkExisting(player.gameBoard.destroyer) !== true
+          ) {
+            spot.classList.add("previewDestroyer");
+          } else if (
+            player.checkExisting(player.gameBoard.submarine) !== true
+          ) {
+            spot.classList.add("previewSubmarine");
+          } else if (
+            player.checkExisting(player.gameBoard.patrolBoat) !== true
+          ) {
+            spot.classList.add("previewpatrolBoat");
+          }
+        } else if (vertical === true) {
+          if (player.checkExisting(player.gameBoard.carrier) !== true) {
+            spot.classList.add("previewCarrierV");
+          } else if (
+            player.checkExisting(player.gameBoard.battleship) !== true
+          ) {
+            spot.classList.add("previewBattleshipV");
+          } else if (
+            player.checkExisting(player.gameBoard.destroyer) !== true
+          ) {
+            spot.classList.add("previewDestroyerV");
+          } else if (
+            player.checkExisting(player.gameBoard.submarine) !== true
+          ) {
+            spot.classList.add("previewSubmarineV");
+          } else if (
+            player.checkExisting(player.gameBoard.patrolBoat) !== true
+          ) {
+            spot.classList.add("previewpatrolBoatV");
+          }
+        }
+      });
+      spot.addEventListener("mouseleave", () => {
+        spot.classList.remove("previewCarrier");
+        spot.classList.remove("previewBattleship");
+        spot.classList.remove("previewDestroyer");
+        spot.classList.remove("previewSubmarine");
+        spot.classList.remove("previewpatrolBoat");
+        spot.classList.remove("previewCarrierV");
+        spot.classList.remove("previewBattleshipV");
+        spot.classList.remove("previewDestroyerV");
+        spot.classList.remove("previewSubmarineV");
+        spot.classList.remove("previewpatrolBoatV");
+      });
+    });
+  };
+
+  return {
+    render,
+    renderPlayerShips,
+    renderHit,
+    player1,
+    player2,
+    startGame,
+    prepForBattle,
+  };
 })();
 
 export { display };

@@ -6,7 +6,8 @@
   align-items: center;
 }
 
-.gameBoard, .gameBoard2 {
+.gameBoard,
+.gameBoard2 {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
@@ -22,35 +23,102 @@
 }
 
 .missed {
-    background-color: aquamarine;
+  background-color: aquamarine;
 }
 
 .container .hit {
-    background-color: red;
+  background-color: red;
 }
 
 .carrier {
-    background-image: url(./aircraft-carrier.png)
+  background-image: url(./aircraft-carrier.png);
 }
 
 .battleship {
-    background-image: url(./battleship.png);
+  background-image: url(./battleship.png);
 }
 
 .destroyer {
-    background-image: url(./cruise.png);
+  background-image: url(./cruise.png);
 }
 
 .submarine {
-    background-image: url(./submarine.png);
+  background-image: url(./submarine.png);
 }
 
 .patrolBoat {
-    background-image: url(./maritime-rescue.png);
+  background-image: url(./maritime-rescue.png);
 }
 
-.carrier, .battleship, .destroyer, .submarine, .patrolBoat {
-    background-position: center;
-    background-size: 70%;
-    background-repeat: no-repeat;
+.carrier,
+.battleship,
+.destroyer,
+.submarine,
+.patrolBoat {
+  background-position: center;
+  background-size: 70%;
+  background-repeat: no-repeat;
+}
+
+.previewCarrier,
+.previewpatrolBoat,
+.previewBattleship,
+.previewDestroyer,
+.previewSubmarine
+ {
+  background-color: rgba(0, 144, 211, 0.5);
+  border: none;
+  background-size: 3vw;
+  background-position: left;
+}
+
+.previewCarrierV,
+.previewpatrolBoatV,
+.previewBattleshipV,
+.previewDestroyerV,
+.previewSubmarineV{
+    background-color: rgba(0, 144, 211, 0.5);
+    border: none;
+    background-size: 3vw;
+    background-position: top;
+}
+
+.previewCarrier {
+  width: 500%;
+}
+
+.previewBattleship {
+  width: 400%;
+}
+
+.previewDestroyer {
+  width: 300%;
+}
+
+.previewSubmarine {
+  width: 300%;
+}
+
+.previewpatrolBoat {
+  width: 200%;
+}
+
+.previewCarrierV {
+  height: 500%;
+}
+
+.previewBattleshipV {
+  height: 400%;
+}
+
+.previewDestroyerV {
+  height: 300%;
+}
+
+.previewSubmarineV {
+  height: 300%;
+}
+
+.previewpatrolBoatV {
+  height: 200%;
 }
