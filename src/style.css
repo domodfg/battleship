@@ -29,6 +29,28 @@
     background-color: red;
 }
 
-.carrier, .battleship, .submarine, .destroyer, .patrolBoat {
-    background-color: blue;
+.carrier {
+    background-image: url(./aircraft-carrier.png)
+}
+
+.battleship {
+    background-image: url(./battleship.png);
+}
+
+.destroyer {
+    background-image: url(./cruise.png);
+}
+
+.submarine {
+    background-image: url(./submarine.png);
+}
+
+.patrolBoat {
+    background-image: url(./maritime-rescue.png);
+}
+
+.carrier, .battleship, .destroyer, .submarine, .patrolBoat {
+    background-position: center;
+    background-size: 70%;
+    background-repeat: no-repeat;
 }
