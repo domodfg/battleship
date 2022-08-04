@@ -2,7 +2,10 @@ import { player } from "./player";
 import { computer } from "./computer";
 
 const display = (() => {
+
   const mainContainer = document.querySelector(".container");
+
+  const message = document.querySelector('.message')
 
   const player1 = document.createElement("div");
   player1.classList.add("gameBoard");
@@ -68,11 +71,7 @@ const display = (() => {
   let ready = false;
 
   const setReady = () => {
-    if (ready === false) {
-      ready = true;
-    } else {
       ready = false;
-    }
   };
 
   const startGame = () => {
@@ -93,12 +92,12 @@ const display = (() => {
               player.gameBoard.gameOverCheck() === true &&
               computer.gameBoard.gameOverCheck() !== true
             ) {
-              console.log("Draw");
+                message.textContent = "draw";
             }
             if (player.gameBoard.gameOverCheck() === true) {
-              console.log("you lose");
+                message.textContent = "you lose";
             } else if (computer.gameBoard.gameOverCheck() === true) {
-              console.log("you win");
+                message.textContent = "you win";
             }
           }
         }
@@ -107,6 +106,7 @@ const display = (() => {
   };
 
   const prepForBattle = () => {
+    message.textContent = 'Place your ships on the left board'
     const square = player1.querySelectorAll(".square");
 
     const rotate = document.querySelector(".rotate");
@@ -125,6 +125,7 @@ const display = (() => {
         renderPlayerShips(player.gameBoard, player1);
         if (player.checkExisting(player.gameBoard.patrolBoat) === true) {
           ready = true;
+          message.textContent = 'Attack your enemies'
         }
       });
 
@@ -196,6 +197,7 @@ const display = (() => {
     prepForBattle,
     removeClass,
     setReady,
+    message
   };
 })();
 

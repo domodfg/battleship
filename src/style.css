@@ -1,9 +1,62 @@
-.container {
-  min-width: 100vw;
-  min-height: 100vh;
+@import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap');
+
+:root {
+    font-family: 'Signika Negative', sans-serif;
+    background-image: url(./water.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+button {
+    font-family: 'Signika Negative', sans-serif;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5vw 3vw;
+    font-size: 1.5rem;
+    background-color: #15ffdf;
+}
+
+button:hover {
+    opacity: 0.7;
+}
+
+.container, .buttons {
+
   display: flex;
   justify-content: space-around;
   align-items: center;
+  max-width: 100vw;
+  gap: 7vw;
+}
+
+.buttons {
+    gap: 30.5vw;
+}
+
+.header {
+    display: grid;
+    height: 20vh;
+    grid-template-rows: 3fr 1fr;
+    align-items: center;
+    justify-items: center;
+    font-size: 1.7vw;
+}
+
+.message {
+    font-size: max(1.5vw, 15px);
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 5vh;
+}
+
+.footer {
+    text-align: center;
 }
 
 .gameBoard,
@@ -13,21 +66,26 @@
   grid-template-rows: repeat(10, 1fr);
   width: 35vw;
   aspect-ratio: 1/1;
-  border-top: 0.1px solid black;
-  border-left: 0.1px solid black;
+  border-top: 0.1px solid  #15ffdf;
+  border-left: 0.1px solid  #15ffdf;
 }
 
 .square {
-  border-right: 0.1px solid black;
-  border-bottom: 0.1px solid black;
+  border-right: 0.1px solid  #15ffdf;
+  border-bottom: 0.1px solid  #15ffdf;
+}
+
+.gameBoard2 .square:hover {
+   border: 2px red solid;
+   border-radius: 5px;
 }
 
 .missed {
-  background-color: aquamarine;
+  background-color: #95ffdc;
 }
 
 .container .hit {
-  background-color: red;
+  background-color: #ff5050;
 }
 
 .carrier {

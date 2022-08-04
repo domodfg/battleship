@@ -17,6 +17,7 @@ const gameLoop = (() => {
     computer.randomPlaceShip();
     display.startGame();
     reset.addEventListener("click", () => {
+        display.message.textContent = 'Place your ships on the left board'
       computer.gameBoard.reset();
       player.gameBoard.reset();
       display.setReady();
