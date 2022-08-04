@@ -1,7 +1,6 @@
 import { gameBoardFactory } from "./gameBoardFactory";
 
 const computer = (() => {
-  let active = true;
 
   const gameBoard = gameBoardFactory();
 
@@ -68,12 +67,10 @@ const computer = (() => {
   const randomAttack = (gameBoard) => {
     do {
       attack(gameBoard, randomNumber(100));
-      console.log("loop");
     } while (invalidAttack === true);
   };
 
   return {
-    active,
     gameBoard,
     randomPlaceShip,
     randomAttack,

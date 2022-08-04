@@ -1,8 +1,8 @@
 import { shipFactory } from "./shipFactory.js";
 
 const gameBoardFactory = () => {
-  const array = Array(100);
-  for (let i = 0; i < array.length; i++) {
+  const gameBoard = Array(100);
+  for (let i = 0; i < gameBoard.length; i++) {
     let Xcoordinate = i;
     let Ycoordinate = i;
     const round = Math.floor(i / 10);
@@ -13,14 +13,45 @@ const gameBoardFactory = () => {
       Ycoordinate = round;
     }
 
-    array[i] = {
+    gameBoard[i] = {
       occupied: "no",
       attacked: "no",
       X: Xcoordinate,
       Y: Ycoordinate,
     };
   }
-  const gameBoard = array;
+
+  const resetShips = (ship) => {
+    for (let index = 0; index < ship.shipHealth.length; index++) {
+      ship.shipHealth[index] = { position: index, status: "good" };
+    }
+  };
+
+  const reset = () => {
+    for (let i = 0; i < gameBoard.length; i++) {
+      let Xcoordinate = i;
+      let Ycoordinate = i;
+      const round = Math.floor(i / 10);
+      if (i > 9) {
+        Xcoordinate = i - 10 * round;
+      }
+      if (i > 0) {
+        Ycoordinate = round;
+      }
+
+      gameBoard[i] = {
+        occupied: "no",
+        attacked: "no",
+        X: Xcoordinate,
+        Y: Ycoordinate,
+      };
+    }
+    resetShips(carrier);
+    resetShips(battleship);
+    resetShips(destroyer);
+    resetShips(submarine);
+    resetShips(patrolBoat);
+  };
 
   const carrier = shipFactory("carrier", 5);
   const battleship = shipFactory("battleship", 4);
@@ -102,13 +133,9 @@ const gameBoardFactory = () => {
   };
 
   const receiveAttack = (coordinate) => {
-    if (
-      gameBoard[coordinate].attacked === "no"
-    ) {
+    if (gameBoard[coordinate].attacked === "no") {
       gameBoard[coordinate].attacked = "yes";
-    } else if (
-      gameBoard[coordinate].attacked === "yes"
-    ) {
+    } else if (gameBoard[coordinate].attacked === "yes") {
       return false;
     } else if (
       gameBoard[coordinate].occupied !== "no" &&
@@ -145,6 +172,8 @@ const gameBoardFactory = () => {
     placeShipVertical,
     receiveAttack,
     gameOverCheck,
+    reset,
+    resetShips
   };
 };
 

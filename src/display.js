@@ -41,6 +41,19 @@ const display = (() => {
     }
   };
 
+  const removeClass = (gameBoard, target) => {
+    for (let i = 0; i < gameBoard.gameBoard.length; i++) {
+      const occupiedSpot = target.querySelector(`[data="${i}"]`);
+      occupiedSpot.classList.remove("carrier");
+      occupiedSpot.classList.remove("battleship");
+      occupiedSpot.classList.remove("destroyer");
+      occupiedSpot.classList.remove("submarine");
+      occupiedSpot.classList.remove("patrolBoat");
+      occupiedSpot.classList.remove("hit");
+      occupiedSpot.classList.remove("missed");
+    }
+  };
+
   const renderHit = (gameBoard, target) => {
     for (let i = 0; i < gameBoard.gameBoard.length; i++) {
       const targetSquare = target.querySelector(`[data="${i}"]`);
@@ -52,6 +65,16 @@ const display = (() => {
     }
   };
 
+  let ready = false;
+
+  const setReady = () => {
+    if (ready === false) {
+      ready = true;
+    } else {
+      ready = false;
+    }
+  };
+
   const startGame = () => {
     const square = player2.querySelectorAll(".square");
     square.forEach((spot) => {
@@ -59,7 +82,8 @@ const display = (() => {
       spot.addEventListener("click", () => {
         if (
           player.gameBoard.gameOverCheck() !== true &&
-          computer.gameBoard.gameOverCheck() !== true
+          computer.gameBoard.gameOverCheck() !== true &&
+          ready === true
         ) {
           if (player.attack(computer.gameBoard, index) !== false) {
             renderHit(computer.gameBoard, player2);
@@ -92,7 +116,6 @@ const display = (() => {
       if (vertical === false) {
         vertical = true;
       } else vertical = false;
-      console.log(vertical);
     });
 
     square.forEach((spot) => {
@@ -100,6 +123,9 @@ const display = (() => {
       spot.addEventListener("click", () => {
         player.placeShip(index);
         renderPlayerShips(player.gameBoard, player1);
+        if (player.checkExisting(player.gameBoard.patrolBoat) === true) {
+          ready = true;
+        }
       });
 
       spot.addEventListener("mouseenter", () => {
@@ -168,6 +194,8 @@ const display = (() => {
     player2,
     startGame,
     prepForBattle,
+    removeClass,
+    setReady,
   };
 })();
 

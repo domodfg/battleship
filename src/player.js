@@ -56,7 +56,7 @@ const player = (() => {
     }
   };
 
-  return { gameBoard, placeShip, attack, checkExisting, goVertical};
+  return { gameBoard, placeShip, attack, checkExisting, goVertical };
 })();
 
 export { player };
