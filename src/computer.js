@@ -66,10 +66,10 @@ const computer = (() => {
   };
 
   const randomAttack = (gameBoard) => {
-    while ((invalidAttack === true)) {
+    do {
       attack(gameBoard, randomNumber(100));
-      console.log('loop')
-    }
+      console.log("loop");
+    } while (invalidAttack === true);
   };
 
   return {
