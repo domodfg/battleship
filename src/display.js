@@ -1,23 +1,29 @@
 import { player } from "./player";
+import { computer } from "./computer";
 
 const display = (() => {
   const mainContainer = document.querySelector(".container");
-  const boardContainer = document.createElement("div");
-  boardContainer.classList.add("gameBoard");
 
-  const render = (gameBoard) => {
-    for (let i = 0; i < gameBoard.length; i++) {
+  const player1 = document.createElement("div");
+  player1.classList.add("gameBoard");
+
+  const player2 = document.createElement("div");
+  player2.classList.add("gameBoard2");
+
+  const render = (gameBoard, target) => {
+    for (let i = 0; i < gameBoard.gameBoard.length; i++) {
       const square = document.createElement("div");
-      square.setAttribute("id", i);
+      /*       square.classList.add(`-${i}`); */
+      square.setAttribute("data", i);
       square.classList.add("square");
-      boardContainer.appendChild(square);
+      target.appendChild(square);
     }
-    mainContainer.appendChild(boardContainer);
+    mainContainer.appendChild(target);
   };
 
-  const renderPlayerShips = (gameBoard) => {
+  const renderPlayerShips = (gameBoard, target) => {
     for (let i = 0; i < gameBoard.gameBoard.length; i++) {
-      const occupiedSpot = document.getElementById(i);
+      const occupiedSpot = target.querySelector(`[data="${i}"]`);
       if (gameBoard.gameBoard[i].occupied === gameBoard.carrier) {
         occupiedSpot.classList.add("carrier");
       }
@@ -36,18 +42,48 @@ const display = (() => {
     }
   };
 
-  const renderHit = (gameBoard) => {
-    for (let i = 0; i < gameBoard.length; i++) {
-      const targetSquare = document.getElementById(i);
-      if (gameBoard[i].attacked === "yes") {
+  const renderHit = (gameBoard, target) => {
+    for (let i = 0; i < gameBoard.gameBoard.length; i++) {
+      const targetSquare = target.querySelector(`[data="${i}"]`);
+      if (gameBoard.gameBoard[i].attacked === "yes") {
         targetSquare.classList.add("missed");
-      } else if (gameBoard[i].status === "hit") {
+      } else if (gameBoard.gameBoard[i].status === "hit") {
         targetSquare.classList.add("hit");
       }
     }
   };
 
-  return { render, renderPlayerShips, renderHit };
+  const startGame = () => {
+    const square = player2.querySelectorAll(".square");
+    square.forEach((spot) => {
+      const index = parseInt(spot.getAttribute("data"));
+      spot.addEventListener("click", () => {
+        if (
+          player.gameBoard.gameOverCheck() !== true &&
+          computer.gameBoard.gameOverCheck() !== true
+        ) {
+          if (player.attack(computer.gameBoard, index) !== false) {
+            renderHit(computer.gameBoard, player2);
+            computer.randomAttack(player.gameBoard);
+            renderHit(player.gameBoard, player1);
+            if (
+              player.gameBoard.gameOverCheck() === true &&
+              computer.gameBoard.gameOverCheck() !== true
+            ) {
+              console.log("Draw");
+            }
+            if (player.gameBoard.gameOverCheck() === true) {
+              console.log("you lose");
+            } else if (computer.gameBoard.gameOverCheck() === true) {
+              console.log("you win");
+            }
+          }
+        }
+      });
+    });
+  };
+
+  return { render, renderPlayerShips, renderHit, player1, player2, startGame };
 })();
 
 export { display };

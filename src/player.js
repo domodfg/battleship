@@ -45,7 +45,11 @@ const player = (() => {
   };
 
   const attack = (gameBoard, coordinate) => {
-    gameBoard.receiveAttack(coordinate);
+    if (gameBoard.receiveAttack(coordinate) === false) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   return { active, gameBoard, placeShip, attack };

@@ -13,18 +13,11 @@ player.placeShip(55, "horizontal");
 
 computer.randomPlaceShip();
 
+display.render(player.gameBoard, display.player1);
+display.renderPlayerShips(player.gameBoard, display.player1);
 
-player.gameBoard.receiveAttack(9);
-    
+display.render(computer.gameBoard, display.player2);
 
-
-
-computer.randomAttack(player.gameBoard);
-
-display.render(player.gameBoard.gameBoard)
-display.renderPlayerShips(player.gameBoard)
-display.renderHit(player.gameBoard.gameBoard)
+display.startGame()  
 
 
-
-console.log(player.gameBoard.gameBoard)
