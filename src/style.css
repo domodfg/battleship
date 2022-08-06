@@ -2,10 +2,15 @@
 
 :root {
     font-family: 'Signika Negative', sans-serif;
-    background-image: url(./water.jpg);
+    background-image: url(./battleshipWallpaper.jpg);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    color: aliceblue;
+}
+
+h1 {
+  font-weight: 500;
 }
 
 button {
