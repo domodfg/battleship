@@ -11,6 +11,7 @@
 
 h1 {
   font-weight: 500;
+  margin: 0;
 }
 
 button {
@@ -31,12 +32,8 @@ button:hover {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  max-width: 100vw;
-  gap: 7vw;
-}
+  width: 80%;
 
-.buttons {
-    gap: 30.5vw;
 }
 
 .header {
@@ -56,8 +53,10 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
-    gap: 5vh;
+}
+
+.buttons {
+    margin: 1rem 0;
 }
 
 .footer {
@@ -184,4 +183,14 @@ button:hover {
 
 .previewpatrolBoatV {
   height: 200%;
+}
+
+@media (max-width:700px) {
+    .container {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .gameBoard, .gameBoard2{
+        width: 80%;
+    }
 }
